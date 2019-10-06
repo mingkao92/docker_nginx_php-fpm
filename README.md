@@ -13,7 +13,7 @@ nginx_php-fpm docker镜像，基于dockerhub官方镜像组合，并作部分修
 #### 改动：
 ##### nginx
 1. 安装及修改配置后增加冒烟测试
-2. 增加fastcgi代理到fpm配置
+2. 增加fastcgi代理到php-fpm配置
 3. 增加vhost示例
 
 ##### php-fpm
