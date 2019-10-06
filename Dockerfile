@@ -218,6 +218,9 @@ RUN set -eux; \
 		libxml2-dev \
 		openssl-dev \
 		sqlite-dev \
+		libjpeg-turbo-dev \
+		libpng-dev \
+		freetype-dev \
 	; \
 	\
 	export CFLAGS="$PHP_CFLAGS" \
@@ -231,6 +234,9 @@ RUN set -eux; \
 		--build="$gnuArch" \
 		--with-config-file-path="$PHP_INI_DIR" \
 		--with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
+		--with-jpeg-dir=/usr/lib \
+		--with-png-dir=/usr/lib \
+		--with-freetype-dir=/usr/lib \
 		\
 # make sure invalid --configure-flags are fatal errors intead of just warnings
 		--enable-option-checking=fatal \
@@ -253,6 +259,9 @@ RUN set -eux; \
 		--with-libedit \
 		--with-openssl \
 		--with-zlib \
+		--with-gd \
+		--with-pdo-mysql \
+		--enable-opcache \
 		\
 # bundled pcre does not support JIT on s390x
 # https://manpages.debian.org/stretch/libpcre3-dev/pcrejit.3.en.html#AVAILABILITY_OF_JIT_SUPPORT
@@ -284,9 +293,9 @@ RUN set -eux; \
 	pecl update-channels; \
 	rm -rf /tmp/pear ~/.pearrc; \
 # add pecl extensions
-	pecl install redis; \
+	pecl install redis apcu; \
 	chmod +x -c $(php -r 'echo ini_get("extension_dir");')/*.so; \
-	docker-php-ext-enable sodium redis; \
+	docker-php-ext-enable sodium redis apcu; \
 	\
 	apk del --no-network .build-deps; \
 	\

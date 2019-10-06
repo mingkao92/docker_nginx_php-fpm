@@ -19,7 +19,8 @@ nginx_php-fpm docker镜像，基于dockerhub官方镜像组合，并作部分修
 ##### php-fpm
 1. 安装完成及修改配置后增加冒烟测试
 2. 对部分指令进行合并/调整顺序处理
-3. 开启redis扩展
+3. 开启gd、pdo_mysql、opcache扩展
+4. 安装redis、apcu扩展
 4. 对部分配置进行修改
 
 ##### 其他
