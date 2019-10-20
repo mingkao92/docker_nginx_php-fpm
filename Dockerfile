@@ -261,7 +261,6 @@ RUN set -eux; \
 		--with-zlib \
 		--with-gd \
 		--with-pdo-mysql \
-		--enable-opcache \
 		\
 # bundled pcre does not support JIT on s390x
 # https://manpages.debian.org/stretch/libpcre3-dev/pcrejit.3.en.html#AVAILABILITY_OF_JIT_SUPPORT
@@ -274,7 +273,10 @@ RUN set -eux; \
 	make install; \
 	find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true; \
 	make clean; \
-	\
+    \
+# add opcache
+    docker-php-ext-install -j "$(nproc)" opcache; \
+    \
 # https://github.com/docker-library/php/issues/692 (copy default example "php.ini" files somewhere easily discoverable)
 	cp -v php.ini-* "$PHP_INI_DIR/"; \
 	\
